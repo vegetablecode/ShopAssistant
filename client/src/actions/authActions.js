@@ -13,13 +13,13 @@ import {
 } from "./types";
 
 // Check token & load user
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => async (dispatch, getState) => {
   // User loading
   dispatch({
     type: USER_LOADING
   });
 
-  axios
+  await axios
     .get("/api/auth/user", tokenConfig(getState))
     .then(res =>
       dispatch({
@@ -36,7 +36,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => dispatch => {
+export const register = ({ name, email, password }) => async dispatch => {
   // Headers
   const config = {
     headers: {
@@ -47,7 +47,7 @@ export const register = ({ name, email, password }) => dispatch => {
   // Request body
   const body = JSON.stringify({ name, email, password });
 
-  axios
+  await axios
     .post("/api/users", body, config)
     .then(res =>
       dispatch({
@@ -66,7 +66,7 @@ export const register = ({ name, email, password }) => dispatch => {
 };
 
 // Register User
-export const login = ({ email, password }) => dispatch => {
+export const login = ({ email, password }) => async dispatch => {
   // Headers
   const config = {
     headers: {
@@ -76,8 +76,8 @@ export const login = ({ email, password }) => dispatch => {
 
   // Request body
   const body = JSON.stringify({ email, password });
-  
-  axios
+
+  await axios
     .post("/api/auth", body, config)
     .then(res =>
       dispatch({

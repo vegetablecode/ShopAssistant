@@ -3,9 +3,9 @@ import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
-export const getItems = () => dispatch => {
+export const getItems = () => async dispatch => {
   dispatch(setItemsLoading());
-  axios
+  await axios
     .get("/api/items")
     .then(res =>
       dispatch({
@@ -18,8 +18,8 @@ export const getItems = () => dispatch => {
     );
 };
 
-export const addItem = item => (dispatch, getState) => {
-  axios
+export const addItem = item => async (dispatch, getState) => {
+  await axios
     .post("/api/items", item, tokenConfig(getState))
     .then(res =>
       dispatch({
@@ -32,8 +32,8 @@ export const addItem = item => (dispatch, getState) => {
     );
 };
 
-export const deleteItem = id => (dispatch, getState) => {
-  axios
+export const deleteItem = id => async (dispatch, getState) => {
+  await axios
     .delete(`/api/items/${id}`, tokenConfig(getState))
     .then(res =>
       dispatch({
