@@ -12,10 +12,10 @@ const User = require("../../models/User");
 // @desc    Auth user
 // @access  Public
 router.post("/", (req, res) => {
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
 
   // Simple validation
-  if (!name || !email || !password) {
+  if (!email || !password) {
     return res.status(400).json({
       msg: "Please enter all fields"
     });
@@ -41,7 +41,6 @@ router.post("/", (req, res) => {
             token: token,
             user: {
               id: user.id,
-              name: user.name,
               email: user.email
             }
           });

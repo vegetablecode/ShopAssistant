@@ -14,6 +14,10 @@ import { addItem } from "../actions/itemActions";
 import PropTypes from "prop-types";
 
 class ItemModal extends Component {
+  static propTypes = {
+    addItem: PropTypes.func.isRequired
+  };
+
   state = {
     modal: false,
     name: ""
@@ -79,10 +83,6 @@ class ItemModal extends Component {
     );
   }
 }
-
-ItemModal.propTypes = {
-  addItem: PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => ({
   item: state.item

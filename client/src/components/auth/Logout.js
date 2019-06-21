@@ -6,6 +6,10 @@ import PropTypes from "prop-types";
 import { logout } from "../../actions/authActions";
 
 class Logout extends Component {
+  static propTypes = {
+    logout: PropTypes.func.isRequired
+  };
+
   render() {
     return (
       <Fragment>
@@ -15,10 +19,6 @@ class Logout extends Component {
       </Fragment>
     );
   }
-}
-
-Logout.propTypes = {
-    logout: PropTypes.func.isRequired 
 }
 
 export default connect(
