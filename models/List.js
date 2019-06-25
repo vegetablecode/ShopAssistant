@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const ItemSchema = new Schema({
+const ListSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -11,10 +11,16 @@ const ItemSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  list: {
+  user: {
     type: Schema.Types.ObjectId,
-    ref: "list"
-  }
+    ref: "user"
+  },
+  items: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "item"
+    }
+  ]
 });
 
-module.exports = Item = mongoose.model("item", ItemSchema);
+module.exports = List = mongoose.model("list", ListSchema);

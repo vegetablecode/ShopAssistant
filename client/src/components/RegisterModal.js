@@ -23,7 +23,7 @@ class RegisterModal extends Component {
     register: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
   };
-  
+
   state = {
     modal: false,
     name: "",
