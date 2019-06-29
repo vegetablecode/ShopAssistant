@@ -1,20 +1,49 @@
-const Item = require("../models/Item");
+const Item = require("../models/item");
+const User = require("../models/user");
 
 module.exports = {
-  getAllItems: (req, res) => {
-    Item.find()
-      .sort({ date: -1 })
-      .then(items => res.status(200).json(items));
+  getAllItems: async (req, res) => {
+    const user = await User.findById(req.user.id).populate("lists");
+    const items = user.lists;
+    return res.status(200).json(items);
   },
-  addANewItem: (req, res) => {
-    const newItem = new Item({
-      name: req.body.name
-    });
-    newItem.save().then(item => res.json(item));
+  addANewItem: async (req, res) => {
+    const newItem = new Item(req.body);
+
+    // Get user
+    const user = await User.findById(req.user.id);
+
+    // Assign user to list & list to user
+    newItem.user = user._id;
+    user.lists.push(newItem);
+
+    // save list and user
+    await newItem.save();
+    await user.save();
+
+    return res.json(newItem);
   },
-  deleteItem: (req, res) => {
-    Item.findById(req.params.id)
-      .then(item => item.remove().then(() => res.json({ success: true })))
-      .catch(err => res.status(404).json({ success: false }));
+  deleteItem: async (req, res) => {
+    const item = await Item.findById(req.params.id);
+    if (!item) return res.status(404).json({ success: false });
+
+    // check if the item belongs to user
+    if (req.user.id != item.user)
+      return res.status(401).json({ success: false });
+
+    await item.remove();
+    return res.json({ success: true });
+  },
+  getItem: async (req, res) => {
+    const item = await Item.findById(req.params.id);
+    if (!item) return res.status(404).json({ msg: "Cannot find the item!" });
+
+    // check if the item belongs to user
+    if (req.user.id != item.user)
+      return res
+        .status(401)
+        .json({ msg: "You are not authorized to see this item!" });
+
+    return res.json(item);
   }
 };

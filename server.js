@@ -15,11 +15,15 @@ app.use(express.json());
 // DB Config
 const db = config.get("mongoURI");
 
-// Connect to Mongo
+// Connect to Mongo (local)
 mongoose
-  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+  .connect("mongodb://localhost/test", { useNewUrlParser: true });
+
+// Connect to Mongo
+// mongoose
+//   .connect(db, { useNewUrlParser: true, useCreateIndex: true })
+//   .then(() => console.log("MongoDB Connected..."))
+//   .catch(err => console.log(err));
 
 // Use Routes
 app.use("/api/users", require("./routes/users"));
