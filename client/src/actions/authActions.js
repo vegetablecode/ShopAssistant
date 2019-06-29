@@ -11,7 +11,6 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL
 } from "./types";
-import { getItems } from "./itemActions";
 
 // Check token & load user
 export const loadUser = () => async (dispatch, getState) => {
