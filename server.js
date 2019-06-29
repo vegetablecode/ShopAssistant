@@ -1,9 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
+
 const path = require("path");
 const config = require("config");
 
 const app = express();
+
+app.use(helmet());
 
 // Bodyparser Middleware
 app.use(express.json());
@@ -18,10 +22,27 @@ mongoose
   .catch(err => console.log(err));
 
 // Use Routes
-app.use("/api/users", require("./routes/api/users"));
-app.use("/api/auth", require("./routes/api/auth"));
-app.use("/api/items", require("./routes/api/items"));
-app.use("/api/lists", require("./routes/api/lists"));
+app.use("/api/users", require("./routes/users"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/items", require("./routes/items"));
+
+// Catch 404 Errors and forward them to error handler
+app.use((req, res, next) => {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// Error handler function
+app.use((err, req, res, next) => {
+  const error = app.get("env") === "development" ? err : {};
+  const status = err.status || 500;
+
+  // Respond to client
+  res.status(status).json({
+    msg: error.message
+  });
+});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
