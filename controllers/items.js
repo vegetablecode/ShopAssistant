@@ -1,5 +1,5 @@
-const Item = require("../models/item");
-const User = require("../models/user");
+const Item = require("../models/Item");
+const User = require("../models/User");
 
 module.exports = {
   getAllItems: async (req, res) => {
