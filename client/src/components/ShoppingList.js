@@ -2,17 +2,24 @@ import React, { Component } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
-import { getItems, deleteItem } from "../actions/itemActions";
 import PropTypes from "prop-types";
+
+import { getItems, deleteItem } from "../actions/itemActions";
+import ItemModal from "../components/ItemModal";
 
 class ShoppingList extends Component {
   static propTypes = {
     getItems: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool
   };
 
   componentDidMount() {
     this.props.getItems();
+
+    if (!this.props.isAuthenticated) {
+      this.props.history.push("/");
+    }
   }
 
   onDeleteClick = id => {
@@ -24,6 +31,7 @@ class ShoppingList extends Component {
     return (
       <div>
         <Container>
+          <ItemModal />
           <ListGroup>
             <TransitionGroup className="shopping-list">
               {items.map(({ _id, name }) => (
@@ -50,6 +58,7 @@ class ShoppingList extends Component {
 }
 
 const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
   item: state.item
 });
 

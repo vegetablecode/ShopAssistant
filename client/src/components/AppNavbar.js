@@ -10,6 +10,8 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { NavLink, withRouter, Link } from "react-router-dom";
+
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 import Logout from "./auth/Logout";
@@ -36,8 +38,18 @@ class AppNavbar extends Component {
       <Fragment>
         <NavItem>
           <span className="navbar-text mr-3">
-            <strong>{user ? `Welcome ${user.name}` : ""}</strong>
+            <strong>{user ? `Hi ${user.name}` : ""}</strong>
           </span>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            exact
+            to="/shoppingList"
+            className="nav-link"
+            activeClassName="active"
+          >
+            Your Lists
+          </NavLink>
         </NavItem>
         <NavItem>
           <Logout />
@@ -47,6 +59,21 @@ class AppNavbar extends Component {
 
     const guestLinks = (
       <Fragment>
+        <NavItem>
+          <NavLink exact to="/" className="nav-link" activeClassName="active">
+            Home
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            exact
+            to="/about"
+            className="nav-link"
+            activeClassName="active"
+          >
+            About
+          </NavLink>
+        </NavItem>
         <NavItem>
           <RegisterModal />
         </NavItem>
@@ -60,7 +87,7 @@ class AppNavbar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">ShopAssistant</NavbarBrand>
+            <NavbarBrand tag={Link} to={'/'}>ShopAssistant</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
@@ -81,4 +108,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null
-)(AppNavbar);
+)(withRouter(AppNavbar));

@@ -2,14 +2,19 @@ import React, { Component } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import { Container } from "reactstrap";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import store from "./store";
+
+import { loadUser } from "./actions/authActions";
+
 import AppNavbar from "./components/AppNavbar";
 import ShoppingList from "./components/ShoppingList";
-import ItemModal from "./components/ItemModal";
-import { Container } from "reactstrap";
+import Landing from "./components/layout/Landing";
+import About from "./components/layout/About";
 
-import { Provider } from "react-redux";
-import store from "./store";
-import { loadUser } from "./actions/authActions";
 
 class App extends Component {
   componentDidMount() {
@@ -19,13 +24,18 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <AppNavbar />
-          <Container>
-            <ItemModal />
-            <ShoppingList />
-          </Container>
-        </div>
+        <BrowserRouter>
+          <div className="App">
+            <AppNavbar />
+            <Container>
+              <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/shoppingList" component={ShoppingList} />
+              </Switch>
+            </Container>
+          </div>
+        </BrowserRouter>
       </Provider>
     );
   }

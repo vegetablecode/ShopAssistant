@@ -61,7 +61,7 @@ class LoginModal extends Component {
       }
     }
 
-    // If authenticated, close modal
+    // If authenticated, close modal & go to shoppingList
     if (this.state.modal) {
       if (this.props.isAuthenticated) {
         this.toggle();
