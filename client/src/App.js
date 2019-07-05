@@ -10,8 +10,8 @@ import store from "./store";
 
 import { loadUser } from "./actions/authActions";
 
-import AppNavbar from "./components/AppNavbar";
-import ShoppingList from "./components/ShoppingList";
+import AppNavbar from "./components/layout/AppNavbar";
+import ShoppingList from "./components/dashboard/ShoppingList";
 import Landing from "./components/layout/Landing";
 import About from "./components/layout/About";
 

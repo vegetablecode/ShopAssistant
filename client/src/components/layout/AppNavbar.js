@@ -12,9 +12,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { NavLink, withRouter, Link } from "react-router-dom";
 
-import RegisterModal from "./RegisterModal";
-import LoginModal from "./LoginModal";
-import Logout from "./auth/Logout";
+import RegisterModal from "../auth/RegisterModal";
+import LoginModal from "../auth/LoginModal";
+import Logout from "../auth/Logout";
 
 class AppNavbar extends Component {
   static propTypes = {
