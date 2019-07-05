@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Container } from "reactstrap";
+import { TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Row } from "reactstrap";
 
 import { getItems, deleteItem } from "../../actions/itemActions";
 import ItemModal from "./ItemModal";
+import ListCard from "./ListCard";
 
 class ShoppingList extends Component {
   static propTypes = {
@@ -32,25 +34,13 @@ class ShoppingList extends Component {
       <div>
         <Container>
           <ItemModal />
-          <ListGroup>
-            <TransitionGroup className="shopping-list">
+          <TransitionGroup className="shopping-list">
+            <Row>
               {items.map(({ _id, name }) => (
-                <CSSTransition key={_id} timeout={500} classNames="fade">
-                  <ListGroupItem>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >
-                      &times;
-                    </Button>
-                    {name}
-                  </ListGroupItem>
-                </CSSTransition>
+                <ListCard key={_id} name={name} />
               ))}
-            </TransitionGroup>
-          </ListGroup>
+            </Row>
+          </TransitionGroup>
         </Container>
       </div>
     );
