@@ -35,7 +35,7 @@ class ShoppingList extends Component {
           <ItemModal />
           <Row>
             {items.map(({ _id, name }) => (
-              <ListCard key={_id} name={name} />
+              <ListCard key={_id} name={name} id={_id} />
             ))}
           </Row>
         </Container>

@@ -1,17 +1,23 @@
 import React, { Component } from "react";
-
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
   CardFooter,
-  Col
+  Col,
+  ListGroupItem
 } from "reactstrap";
+import { connect } from "react-redux";
 
-import { ListGroupItem } from "reactstrap";
+import { deleteItem } from "../../actions/itemActions";
 
 class ListCard extends Component {
+
+  removeList = id => {
+    this.props.deleteItem(id)
+  }
+
   render() {
     let items = [
       {
@@ -53,7 +59,7 @@ class ListCard extends Component {
             ))}
           </CardBody>
           <CardFooter>
-            <Button>Remove List</Button>
+            <Button onClick={() => this.removeList(this.props.id)}>Remove List</Button>
           </CardFooter>
         </Card>
       </Col>
@@ -61,4 +67,12 @@ class ListCard extends Component {
   }
 }
 
-export default ListCard;
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { deleteItem }
+)(ListCard);
