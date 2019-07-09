@@ -10,12 +10,16 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 
-import { deleteItem } from "../../actions/itemActions";
+import { deleteItem, deleteProduct } from "../../actions/itemActions";
 
 class ListCard extends Component {
   removeList = id => {
     this.props.deleteItem(id);
   };
+
+  removeProduct = (list_id, product_id) => {
+    this.props.deleteProduct(list_id, product_id);
+  }
 
   render() {
     return (
@@ -27,7 +31,7 @@ class ListCard extends Component {
           <CardBody>
             {this.props.products.map(({ _id, name }) => (
               <ListGroupItem key={_id}>
-                <Button className="remove-btn" color="danger" size="sm">
+                <Button className="remove-btn" color="danger" size="sm" onClick={() => this.removeProduct(this.props.id, _id)}>
                   &times;
                 </Button>
                 {name}
@@ -51,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { deleteItem }
+  { deleteItem, deleteProduct }
 )(ListCard);

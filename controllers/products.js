@@ -14,7 +14,7 @@ module.exports = {
   },
   deleteProduct: async (req, res) => {
     // Get list
-    const item = await Item.findById(req.params.item_id);
+    var item = await Item.findById(req.params.item_id);
     if (!item) return res.status(404).json({ success: false });
 
     // Check if it's user's list
@@ -26,8 +26,12 @@ module.exports = {
     if (!product) return res.status(404).json({ success: false });
 
     // Delete product from list (Items)
-    await product.remove();
+    item.products.pop(product._id)
+    item.save()
 
+    // Delete product from database
+    await product.remove();
+    
     return res.json({ success: true });
   }
 };
