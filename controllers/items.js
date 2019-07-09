@@ -4,7 +4,12 @@ const Product = require("../models/Product");
 
 module.exports = {
   getAllItems: async (req, res) => {
-    const user = await User.findById(req.user.id).populate("lists");
+    const user = await User.findById(req.user.id).populate({
+      path: "lists",
+      populate: {
+        path: "products"
+      }
+    });
     const items = user.lists;
     return res.status(200).json(items);
   },
