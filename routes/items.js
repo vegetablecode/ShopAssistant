@@ -25,6 +25,10 @@ router
   // @route   DELETE api/items:id
   // @desc    Delete An Item
   // @access  Private
-  .delete(auth, asyncMiddleware(ItemsController.deleteItem));
+  .delete(auth, asyncMiddleware(ItemsController.deleteItem))
+  // @route   POST api/items:id
+  // @desc    Add Product To List
+  // @access  Private
+  .post(auth, asyncMiddleware(ItemsController.addProduct));
 
 module.exports = router;

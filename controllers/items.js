@@ -1,5 +1,6 @@
 const Item = require("../models/Item");
 const User = require("../models/User");
+const Product = require("../models/Product");
 
 module.exports = {
   getAllItems: async (req, res) => {
@@ -45,5 +46,24 @@ module.exports = {
         .json({ msg: "You are not authorized to see this item!" });
 
     return res.json(item);
+  },
+  addProduct: async (req, res) => {
+    // get list (Item) by id
+    const item = await Item.findById(req.params.id);
+    if (!item) return res.status(404).json({ msg: "Cannot find the item!" });
+
+    // create product
+    var product = new Product(req.body);
+    
+    // assign list to product & save product
+    product.item = item._id
+    console.log(product)
+    await product.save()
+
+    // assign product to list & save list
+    item.products.push(product)
+    await item.save()
+    
+    return res.json(item)
   }
 };
