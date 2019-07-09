@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
-import { TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Row } from "reactstrap";
@@ -34,13 +33,11 @@ class ShoppingList extends Component {
       <div>
         <Container>
           <ItemModal />
-          <TransitionGroup className="shopping-list">
-            <Row>
-              {items.map(({ _id, name }) => (
-                <ListCard key={_id} name={name} />
-              ))}
-            </Row>
-          </TransitionGroup>
+          <Row>
+            {items.map(({ _id, name }) => (
+              <ListCard key={_id} name={name} />
+            ))}
+          </Row>
         </Container>
       </div>
     );

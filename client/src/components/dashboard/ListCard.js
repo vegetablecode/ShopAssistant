@@ -10,7 +10,6 @@ import {
 } from "reactstrap";
 
 import { ListGroupItem } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 class ListCard extends Component {
   render() {
@@ -39,28 +38,24 @@ class ListCard extends Component {
 
     return (
       <Col className="lg-4 mb-4">
-        <TransitionGroup className="shopping-list">
-          <Card h="100" className="custom-list-card">
-            <CardHeader>
-              <h4>{this.props.name}</h4>
-            </CardHeader>
-            <CardBody>
-              {items.map(({ id, name }) => (
-                <CSSTransition key={id} timeout={500} classNames="fade">
-                  <ListGroupItem>
-                    <Button className="remove-btn" color="danger" size="sm">
-                      &times;
-                    </Button>
-                    {name}
-                  </ListGroupItem>
-                </CSSTransition>
-              ))}
-            </CardBody>
-            <CardFooter>
-              <Button>Remove List</Button>
-            </CardFooter>
-          </Card>
-        </TransitionGroup>
+        <Card h="100" className="custom-list-card">
+          <CardHeader>
+            <h4>{this.props.name}</h4>
+          </CardHeader>
+          <CardBody>
+            {items.map(({ id, name }) => (
+              <ListGroupItem key={id}>
+                <Button className="remove-btn" color="danger" size="sm">
+                  &times;
+                </Button>
+                {name}
+              </ListGroupItem>
+            ))}
+          </CardBody>
+          <CardFooter>
+            <Button>Remove List</Button>
+          </CardFooter>
+        </Card>
       </Col>
     );
   }
