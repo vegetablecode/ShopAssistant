@@ -60,20 +60,20 @@ class ItemModal extends Component {
           Add a new List
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Add To Shopping List</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Add a New List</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Item</Label>
+                <Label for="item">List</Label>
                 <Input
                   type="text"
                   name="name"
                   id="item"
-                  placeholder="Add shopping item"
+                  placeholder="Add shopping list"
                   onChange={this.onChange}
                 />
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  Add Item
+                  Add List
                 </Button>
               </FormGroup>
             </Form>

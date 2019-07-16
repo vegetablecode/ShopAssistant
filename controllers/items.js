@@ -65,7 +65,6 @@ module.exports = {
 
     // assign list to product & save product
     product.item = item._id;
-    console.log(product);
     await product.save();
 
     // assign product to list & save list
