@@ -72,6 +72,6 @@ module.exports = {
     item.products.push(product);
     await item.save();
 
-    return res.json(item);
+    return res.json(product);
   }
 };

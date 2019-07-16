@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import {
   Button,
   Card,
-  CardBody,
   CardHeader,
   CardFooter,
   Col,
+  Row,
   ListGroupItem
 } from "reactstrap";
 import { connect } from "react-redux";
@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 
 import { deleteItem } from "../../actions/itemActions";
 import { deleteProduct } from "../../actions/productActions";
+import AddProductField from "./AddProductField";
 
 class ListCard extends Component {
   static propTypes = {
@@ -44,7 +45,7 @@ class ListCard extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState({
       filteredProducts: this.filterProducts(
         nextProps.id,
@@ -54,14 +55,13 @@ class ListCard extends Component {
   }
 
   render() {
-    //console.log(this.state.filteredProducts)
     return (
       <Col className="lg-4 mb-4">
         <Card h="100" className="custom-list-card">
           <CardHeader>
             <h4>{this.props.name}</h4>
           </CardHeader>
-          <CardBody>
+          <div>
             {this.state.filteredProducts.map(({ _id, name }) => (
               <ListGroupItem key={_id}>
                 <Button
@@ -75,11 +75,14 @@ class ListCard extends Component {
                 {name}
               </ListGroupItem>
             ))}
-          </CardBody>
+          </div>
+          <AddProductField list_id={this.props.id} />
           <CardFooter>
-            <Button onClick={() => this.removeList(this.props.id)}>
-              Remove List
-            </Button>
+            <Row>
+              <Button onClick={() => this.removeList(this.props.id)}>
+                Remove List
+              </Button>
+            </Row>
           </CardFooter>
         </Card>
       </Col>
