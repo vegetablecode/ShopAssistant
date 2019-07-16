@@ -34,7 +34,7 @@ class ShoppingList extends Component {
     const { items } = this.props.item;
     return (
       <div>
-        <Container>
+        <Container className="mt-5">
           <ItemModal />
           <Row>
             {items.map(({ _id, name }) => (

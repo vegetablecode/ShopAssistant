@@ -47,7 +47,7 @@ class AddProductField extends Component {
               id="item"
             />
             <InputGroupAddon addonType="append">
-              <Button color="secondary">+</Button>
+              <Button color="primary">+</Button>
             </InputGroupAddon>
           </InputGroup>
         </Form>

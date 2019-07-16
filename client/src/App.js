@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Container } from "reactstrap";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -27,13 +26,11 @@ class App extends Component {
         <BrowserRouter>
           <div className="App">
             <AppNavbar />
-            <Container>
               <Switch>
               <Route exact path="/" component={Landing} />
               <Route exact path="/about" component={About} />
               <Route exact path="/shoppingList" component={ShoppingList} />
               </Switch>
-            </Container>
           </div>
         </BrowserRouter>
       </Provider>

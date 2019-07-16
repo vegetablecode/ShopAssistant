@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardFooter,
   Col,
-  Row,
   ListGroupItem
 } from "reactstrap";
 import { connect } from "react-redux";
@@ -59,6 +58,13 @@ class ListCard extends Component {
       <Col className="lg-4 mb-4">
         <Card h="100" className="custom-list-card">
           <CardHeader>
+            <Button
+              color="link"
+              style={{ float: "right" }}
+              onClick={() => this.removeList(this.props.id)}
+            >
+              Remove List
+            </Button>
             <h4>{this.props.name}</h4>
           </CardHeader>
           <div>
@@ -66,7 +72,7 @@ class ListCard extends Component {
               <ListGroupItem key={_id}>
                 <Button
                   className="remove-btn"
-                  color="danger"
+                  color="outline-danger"
                   size="sm"
                   onClick={() => this.removeProduct(this.props.id, _id)}
                 >
@@ -76,13 +82,8 @@ class ListCard extends Component {
               </ListGroupItem>
             ))}
           </div>
-          <AddProductField list_id={this.props.id} />
           <CardFooter>
-            <Row>
-              <Button onClick={() => this.removeList(this.props.id)}>
-                Remove List
-              </Button>
-            </Row>
+            <AddProductField list_id={this.props.id} />
           </CardFooter>
         </Card>
       </Col>
