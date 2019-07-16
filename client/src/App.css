@@ -19,3 +19,11 @@
     opacity: 0.01;
     transition: opacity 1000ms ease-in;
 }
+
+.custom-list-card {
+    min-width: 300px;
+}
+
+.btn-space {
+    margin-right: 5px;
+}
