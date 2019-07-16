@@ -3,7 +3,6 @@ import {
   ADD_ITEM,
   DELETE_ITEM,
   ITEMS_LOADING,
-  DELETE_PRODUCT
 } from "../actions/types";
 
 const initialState = {
@@ -36,12 +35,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
-      };
-
-    case DELETE_PRODUCT:
-      //console.log(action.payload);
-      return {
-        ...state
       };
 
     default:

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PRODUCTS } from "./types";
+import { GET_PRODUCTS, DELETE_PRODUCT } from "./types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
@@ -17,3 +17,19 @@ export const getProducts = () => async (dispatch, getState) => {
       dispatch(returnErrors(err.response.data, err.response.status))
     );
 };
+
+export const deleteProduct = (list_id, product_id) => async (
+    dispatch,
+    getState
+  ) => {
+    await axios
+      .delete(`/api/products/${list_id}/${product_id}`, tokenConfig(getState))
+      .then(res =>
+        dispatch({
+          type: DELETE_PRODUCT,
+          payload: product_id
+        })
+      )
+      .catch(err => console.log(err));
+  };
+  
