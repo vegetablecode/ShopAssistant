@@ -5,18 +5,21 @@ import PropTypes from "prop-types";
 import { Row } from "reactstrap";
 
 import { getItems, deleteItem } from "../../actions/itemActions";
+import { getProducts } from "../../actions/productActions";
 import ItemModal from "./ItemModal";
 import ListCard from "./ListCard";
 
 class ShoppingList extends Component {
   static propTypes = {
     getItems: PropTypes.func.isRequired,
+    getProducts: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool
   };
 
   componentDidMount() {
     this.props.getItems();
+    this.props.getProducts();
 
     if (!this.props.isAuthenticated) {
       this.props.history.push("/");
@@ -34,8 +37,8 @@ class ShoppingList extends Component {
         <Container>
           <ItemModal />
           <Row>
-            {items.map(({ _id, name, products }) => (
-              <ListCard key={_id} name={name} id={_id} products={products} />
+            {items.map(({ _id, name }) => (
+              <ListCard key={_id} name={name} id={_id}/>
             ))}
           </Row>
         </Container>
@@ -46,10 +49,11 @@ class ShoppingList extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  item: state.item
+  item: state.item,
+  products: state.products
 });
 
 export default connect(
   mapStateToProps,
-  { getItems, deleteItem }
+  { getItems, deleteItem, getProducts }
 )(ShoppingList);

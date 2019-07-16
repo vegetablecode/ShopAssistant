@@ -13,12 +13,26 @@ import { connect } from "react-redux";
 import { deleteItem, deleteProduct } from "../../actions/itemActions";
 
 class ListCard extends Component {
+  state = {
+    filteredProducts: []
+  }
+
   removeList = id => {
     this.props.deleteItem(id);
   };
 
   removeProduct = (list_id, product_id) => {
     this.props.deleteProduct(list_id, product_id);
+  }
+
+  filterProducts = (id, products) => {
+    return products.filter(product => product.item === id)
+  }
+
+  componentDidMount() {
+    this.setState({
+      filteredProducts: this.filterProducts(this.props.id, this.props.products.products)
+    })
   }
 
   render() {
@@ -29,7 +43,7 @@ class ListCard extends Component {
             <h4>{this.props.name}</h4>
           </CardHeader>
           <CardBody>
-            {this.props.products.map(({ _id, name }) => (
+            {this.state.filteredProducts.map(({ _id, name }) => (
               <ListGroupItem key={_id}>
                 <Button className="remove-btn" color="danger" size="sm" onClick={() => this.removeProduct(this.props.id, _id)}>
                   &times;
@@ -50,7 +64,8 @@ class ListCard extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  products: state.products
 });
 
 export default connect(

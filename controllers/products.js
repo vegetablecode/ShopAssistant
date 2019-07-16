@@ -3,6 +3,22 @@ const User = require("../models/User");
 const Product = require("../models/Product");
 
 module.exports = {
+  getAllProducts: async (req, res) => {
+    var allUserProducts = [];
+
+    // get user
+    const user = await User.findById(req.user.id);
+
+    // get lists
+    const userLists = user.lists;
+
+    // get products
+    for (i = 0; i < userLists.length; i++) {
+      const products = await Product.find({ item: userLists[i] });
+      allUserProducts = allUserProducts.concat(products);
+    }
+    return res.status(200).json(allUserProducts);
+  },
   getProducts: async (req, res) => {
     // get list
     const item = await Item.findById(req.params.id).populate("products");
@@ -26,12 +42,12 @@ module.exports = {
     if (!product) return res.status(404).json({ success: false });
 
     // Delete product from list (Items)
-    item.products.pop(product._id)
-    item.save()
+    item.products.pop(product._id);
+    item.save();
 
     // Delete product from database
     await product.remove();
-    
+
     return res.json({ success: true });
   }
 };

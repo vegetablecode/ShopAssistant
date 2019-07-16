@@ -4,11 +4,14 @@ const Product = require("../models/Product");
 
 module.exports = {
   getAllItems: async (req, res) => {
+    // const user = await User.findById(req.user.id).populate({
+    //   path: "lists",
+    //   populate: {
+    //     path: "products"
+    //   }
+    // });
     const user = await User.findById(req.user.id).populate({
-      path: "lists",
-      populate: {
-        path: "products"
-      }
+      path: "lists"
     });
     const items = user.lists;
     return res.status(200).json(items);
@@ -59,16 +62,16 @@ module.exports = {
 
     // create product
     var product = new Product(req.body);
-    
+
     // assign list to product & save product
-    product.item = item._id
-    console.log(product)
-    await product.save()
+    product.item = item._id;
+    console.log(product);
+    await product.save();
 
     // assign product to list & save list
-    item.products.push(product)
-    await item.save()
-    
-    return res.json(item)
+    item.products.push(product);
+    await item.save();
+
+    return res.json(item);
   }
 };

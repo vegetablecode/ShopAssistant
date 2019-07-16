@@ -6,6 +6,13 @@ const ProductsController = require("../controllers/products");
 const asyncMiddleware = require("../middleware/asyncMiddleware");
 
 router
+  .route("/")
+  // @route   GET api/products
+  // @desc    Get All Products from lists
+  // @access  Private
+  .get(auth, asyncMiddleware(ProductsController.getAllProducts));
+
+router
   .route("/:id")
   // @route   GET api/products:id
   // @desc    Get All Products from list
