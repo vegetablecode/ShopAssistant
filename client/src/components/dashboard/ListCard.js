@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardFooter,
   Col,
-  Row,
   ListGroupItem
 } from "reactstrap";
 import { connect } from "react-redux";
