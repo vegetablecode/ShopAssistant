@@ -7,7 +7,7 @@ const config = require("config");
 const app = express();
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Bodyparser Middleware
 app.use(express.json());
@@ -46,16 +46,12 @@ app.use((err, req, res, next) => {
   // Respond to client
   res.status(status).json({
     msg: error.message
-  })
+  });
 });
 
-// Prepare for production
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
-
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// Catchall handler
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname + "/../dist/index.html"));
 });
 
 const port = process.env.PORT || 5000;
