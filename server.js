@@ -46,7 +46,7 @@ app.use((err, req, res, next) => {
   // Respond to client
   res.status(status).json({
     msg: error.message
-  });
+  })
 });
 
 // The "catchall" handler: for any request that doesn't

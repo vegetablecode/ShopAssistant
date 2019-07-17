@@ -10,7 +10,7 @@ module.exports = {
     //     path: "products"
     //   }
     // });
-    const user = await User.findById(req.user.id).populate(lists);
+    const user = await User.findById(req.user.id).populate("lists");
     const items = user.lists;
     return res.status(200).json(items);
   },
